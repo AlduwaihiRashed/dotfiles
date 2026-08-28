@@ -1,0 +1,37 @@
+image=/home/alduwaihy/Pictures/Wallpapers/200096-nordic-landscape-3840x2160.jpg
+scaling=fill
+
+ignore-empty-password
+indicator-radius=90
+indicator-thickness=8
+
+font=JetBrains Mono
+font-size=24
+
+# Nord palette (mirrors ~/.config/sway/config)
+color=2E3440
+
+inside-color=3B4252CC
+inside-clear-color=88C0D0CC
+inside-ver-color=88C0D0CC
+inside-wrong-color=BF616ACC
+
+ring-color=434C5E
+ring-clear-color=88C0D0
+ring-ver-color=88C0D0
+ring-wrong-color=BF616A
+
+line-color=00000000
+line-clear-color=00000000
+line-ver-color=00000000
+line-wrong-color=00000000
+
+key-hl-color=88C0D0
+bs-hl-color=BF616A
+
+text-color=D8DEE9
+text-clear-color=2E3440
+text-ver-color=2E3440
+text-wrong-color=2E3440
+
+separator-color=00000000

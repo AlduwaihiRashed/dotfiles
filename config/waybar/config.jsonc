@@ -1,0 +1,118 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 24,
+    "spacing": 8,
+
+    "modules-left": [
+        "sway/workspaces",
+        "sway/window"
+    ],
+
+    "modules-center": [
+        "clock"
+    ],
+
+    "modules-right": [
+        "mpris",
+        "pulseaudio",
+        "pulseaudio/slider",
+        "custom/mic",
+        "cpu",
+        "memory",
+        "disk",
+        "network",
+        "tray"
+    ],
+
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{name}",
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": []
+        }
+    },
+
+    "sway/window": {
+        "max-length": 28
+    },
+
+    "clock": {
+        "format": "  {:%H:%M}",
+        "format-alt": "  {:%A, %d %B}"
+    },
+
+    "mpris": {
+        "format": "{status_icon} {dynamic}",
+        "format-paused": "{status_icon} {dynamic}",
+        "status-icons": {
+            "playing": "",
+            "paused": "",
+            "stopped": "󰓛"
+        },
+        "max-length": 26,
+        "dynamic-len": 22,
+        "on-click": "playerctl play-pause",
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous",
+        "tooltip-format": "{player}: {artist} - {title}"
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰖁 muted",
+        "format-icons": {
+            "default": ["", "", ""]
+        },
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click-right": "pavucontrol-qt",
+        "tooltip-format": "{desc}\n{volume}%"
+    },
+
+    "pulseaudio/slider": {
+        "min": 0,
+        "max": 100,
+        "orientation": "horizontal"
+    },
+
+    "custom/mic": {
+        "exec": "pactl get-source-mute @DEFAULT_SOURCE@ 2>/dev/null | grep -q yes && echo '󰍭 muted' || echo '󰍬 live'",
+        "interval": 2,
+        "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+        "tooltip": false
+    },
+
+    "cpu": {
+        "format": " {usage}%",
+        "tooltip": false,
+        "interval": 3
+    },
+
+    "memory": {
+        "format": " {percentage}%",
+        "tooltip-format": "RAM {used:0.1f}GiB / {total:0.1f}GiB",
+        "interval": 3
+    },
+
+    "disk": {
+        "format": " {percentage_used}%",
+        "path": "/",
+        "tooltip-format": "{used} used of {total}",
+        "interval": 30
+    },
+
+    "network": {
+        "format-wifi": " {signalStrength}%",
+        "format-ethernet": "󰈀 {ifname}",
+        "format-disconnected": "󰖪 offline",
+        "tooltip-format-wifi": "{essid}  {signalStrength}%"
+    },
+
+    "tray": {
+        "spacing": 10
+    }
+}

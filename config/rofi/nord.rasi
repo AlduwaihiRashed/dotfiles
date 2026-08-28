@@ -1,0 +1,90 @@
+* {
+    bg:       #2E3440FF;
+    surface:  #3B4252FF;
+    surface2: #434C5EFF;
+    text:     #D8DEE9FF;
+    muted:    #81A1C1FF;
+    accent:   #88C0D0FF;
+    urgent:   #BF616AFF;
+
+    background-color: transparent;
+    text-color:        @text;
+    font:              "JetBrainsMono Nerd Font 11";
+}
+
+window {
+    background-color: @bg;
+    border:            1px;
+    border-color:      @surface2;
+    border-radius:     12px;
+    width:             34em;
+    location:          center;
+    anchor:            center;
+    padding:           10px;
+}
+
+mainbox {
+    background-color: transparent;
+    spacing:           8px;
+    children:           [ inputbar, listview ];
+}
+
+inputbar {
+    background-color: @surface;
+    border-radius:      8px;
+    padding:             8px 12px;
+    spacing:              8px;
+    children:              [ prompt, entry ];
+}
+
+prompt {
+    text-color:  @accent;
+}
+
+entry {
+    placeholder:       "Search…";
+    placeholder-color: @muted;
+    text-color:        @text;
+}
+
+listview {
+    background-color: transparent;
+    columns:            1;
+    lines:               8;
+    spacing:              4px;
+    fixed-height:          false;
+    scrollbar:              false;
+}
+
+element {
+    background-color: transparent;
+    text-color:        @muted;
+    padding:             6px 10px;
+    border-radius:        8px;
+    spacing:               8px;
+    orientation:            horizontal;
+}
+
+element-icon {
+    size: 1.4em;
+    vertical-align: 0.5;
+}
+
+element-text {
+    vertical-align: 0.5;
+}
+
+element selected {
+    background-color: @accent;
+    text-color:        @bg;
+}
+
+element selected element-text,
+element selected element-icon {
+    text-color: @bg;
+}
+
+element normal.urgent,
+element alternate.urgent {
+    text-color: @urgent;
+}

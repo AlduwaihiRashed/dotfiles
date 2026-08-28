@@ -1,0 +1,72 @@
+### Theme ####################################
+
+set $bg       #2E3440
+set $surface  #3B4252
+set $surface2 #434C5E
+set $text     #D8DEE9
+set $muted    #81A1C1
+set $accent   #88C0D0
+set $urgent   #BF616A
+
+font pango:JetBrains Mono 10
+
+# Gaps
+gaps inner 10
+gaps outer 5
+smart_gaps on
+
+# Thin borders
+default_border pixel 2
+default_floating_border pixel 2
+
+# class                 border     background text      indicator child_border
+client.focused          $accent    $bg        $text     $accent   $accent
+client.focused_inactive $surface2  $bg        $text     $surface2 $surface2
+client.unfocused        $surface   $bg        $muted    $surface  $surface
+client.urgent           $urgent    $bg        $text     $urgent   $urgent
+
+# Logo key
+set $mod Mod4
+
+# Apps
+set $term kitty
+set $menu rofi -show drun
+set $lock swaylock -f
+
+bindsym $mod+Return exec $term
+bindsym $mod+d exec $menu
+bindsym --release $mod exec $menu
+bindsym $mod+q kill
+bindsym $mod+Escape exec $lock
+
+# Floating popups
+for_window [app_id="pavucontrol"] floating enable, move position center
+for_window [app_id="qt6ct"] floating enable, move position center
+
+# Workspaces
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+
+# Waybar
+exec_always --no-startup-id waybar
+
+# Idle / lock (dim -> lock -> screen off; lock again on sleep)
+exec_always swayidle -w \
+    timeout 300 '$lock' \
+    timeout 600 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' \
+    before-sleep '$lock'
+
+# Wallpaper
+output * bg /home/alduwaihy/Pictures/Wallpapers/200096-nordic-landscape-3840x2160.jpg fill
+
+# Shadows require swayfx (not installed) - stock sway rejects these:
+# shadows enable
+# shadow_blur_radius 12
+# shadow_color #00000055
+
+exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
+include /etc/sway/config.d/*

@@ -1,0 +1,152 @@
+@define-color bg      #2E3440;
+@define-color surface #3B4252;
+@define-color surface2 #434C5E;
+@define-color text    #D8DEE9;
+@define-color muted   #81A1C1;
+@define-color accent  #88C0D0;
+@define-color urgent  #BF616A;
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font", "JetBrains Mono";
+    font-size: 11px;
+    min-height: 0;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+window#waybar {
+    background: @bg;
+    color: @text;
+}
+
+tooltip {
+    background: @surface;
+    border: 1px solid @surface2;
+    border-radius: 8px;
+}
+
+tooltip label {
+    color: @text;
+    padding: 2px 4px;
+}
+
+/* Workspaces */
+
+#workspaces {
+    padding: 0 4px;
+}
+
+#workspaces button {
+    color: @muted;
+    background: transparent;
+
+    padding: 0;
+    margin: 2px 2px;
+
+    min-width: 18px;
+    min-height: 18px;
+
+    border-radius: 9px;
+
+    transition: all 0.15s ease;
+}
+
+#workspaces button:hover {
+    background: @surface;
+    color: @text;
+}
+
+#workspaces button.focused {
+    background: @accent;
+    color: @bg;
+}
+
+#workspaces button.urgent {
+    background: @urgent;
+    color: @bg;
+}
+
+/* Window title */
+
+#window {
+    color: @muted;
+    padding: 0 10px;
+}
+
+/* Clock */
+
+#clock {
+    font-weight: 600;
+    padding: 0 10px;
+}
+
+/* Media player */
+
+#mpris {
+    color: @accent;
+    padding: 0 10px;
+}
+
+#mpris:hover {
+    background: @surface;
+}
+
+/* Right-side status modules — one continuous strip, hairline separators */
+
+#pulseaudio,
+#pulseaudio-slider,
+#custom-mic,
+#cpu,
+#memory,
+#disk,
+#network,
+#tray {
+    padding: 0 10px;
+    border-left: 1px solid @surface2;
+}
+
+#pulseaudio:hover,
+#custom-mic:hover,
+#cpu:hover,
+#memory:hover,
+#disk:hover,
+#network:hover {
+    background: @surface;
+}
+
+#pulseaudio-slider {
+    min-width: 90px;
+}
+
+#pulseaudio-slider trough {
+    min-height: 4px;
+    border-radius: 2px;
+    background: @surface2;
+}
+
+#pulseaudio-slider highlight {
+    min-height: 4px;
+    border-radius: 2px;
+    background: @accent;
+}
+
+#pulseaudio-slider slider {
+    min-width: 0;
+    min-height: 0;
+    background: transparent;
+}
+
+#custom-mic {
+    color: @muted;
+}
+
+#cpu,
+#memory,
+#disk {
+    color: @muted;
+}
+
+#tray {
+    padding: 0 10px;
+}
