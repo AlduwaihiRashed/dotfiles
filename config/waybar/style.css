@@ -31,6 +31,18 @@ tooltip label {
     padding: 2px 4px;
 }
 
+/* Launcher */
+
+#custom-launcher {
+    color: @accent;
+    padding: 0 10px;
+    font-size: 13px;
+}
+
+#custom-launcher:hover {
+    background: @surface;
+}
+
 /* Workspaces */
 
 #workspaces {
@@ -101,8 +113,10 @@ tooltip label {
 #memory,
 #disk,
 #network,
-#tray {
-    padding: 0 10px;
+#custom-keyboard-language,
+#tray,
+#custom-power {
+    padding: 0 8px;
     border-left: 1px solid @surface2;
 }
 
@@ -111,8 +125,23 @@ tooltip label {
 #cpu:hover,
 #memory:hover,
 #disk:hover,
-#network:hover {
+#network:hover,
+#custom-keyboard-language:hover {
     background: @surface;
+}
+
+#custom-keyboard-language {
+    color: @muted;
+    font-weight: 600;
+}
+
+#custom-power {
+    color: @muted;
+}
+
+#custom-power:hover {
+    background: @urgent;
+    color: @bg;
 }
 
 #pulseaudio-slider {
@@ -147,6 +176,3 @@ tooltip label {
     color: @muted;
 }
 
-#tray {
-    padding: 0 10px;
-}

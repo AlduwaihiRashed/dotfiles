@@ -24,10 +24,15 @@ theme across GTK, Qt, and the SDDM login screen.
 | Status bar | Waybar |
 | App launcher | Rofi |
 | Terminal | Kitty |
+| Shell / prompt | Fish + Starship |
 | Screen lock | Swaylock + Swayidle |
 | Login screen | SDDM (custom Nord Qt6/QML theme) |
 | File manager | Dolphin |
 | Browser | Helium |
+| Editor | micro |
+| System info | macchina (via Homebrew) |
+| GitHub CLI | gh |
+| Fuzzy finder | fzf |
 | Icons / GTK theme | Papirus-Dark / Nordic-darker |
 | Font | JetBrains Mono Nerd Font |
 
@@ -50,16 +55,20 @@ theme) and will prompt for your password interactively.
 `install.sh` will:
 
 1. Enable RPM Fusion free/nonfree and the `imput/helium` COPR
-2. Install the full package set (desktop, audio, dev toolchain)
+2. Install the full package set (desktop, audio, dev toolchain, shell/CLI
+   tools — fish, gh, fzf, micro)
 3. Enable `sddm`, `NetworkManager`, `bluetooth`, and set the graphical target
 4. Download and install the JetBrains Mono **Nerd Font** (the plain
    `jetbrains-mono-fonts-all` dnf package is missing Waybar's icon glyphs)
 5. Download and install the **Nordic-darker** GTK theme (pinned to v2.2.0)
-6. Symlink every config in `config/` into `~/.config/...` (backing up
+6. Install Homebrew and `macchina` (not packaged for Fedora/RPM Fusion)
+7. Install the **Starship** prompt
+8. Set fish as the default login shell
+9. Symlink every config in `config/` into `~/.config/...` (backing up
    anything already there to `<file>.bak`)
-7. Symlink the wallpaper into `~/Pictures/Wallpapers/`
-8. Install the custom Nord SDDM theme to `/usr/share/sddm/themes/nord`
-   (root-owned, so this step needs `sudo`)
+10. Symlink the wallpaper into `~/Pictures/Wallpapers/`
+11. Install the custom Nord SDDM theme to `/usr/share/sddm/themes/nord`
+    (root-owned, so this step needs `sudo`)
 
 ### After it finishes
 
@@ -94,14 +103,27 @@ dotfiles/
 ├── install.sh              # the installer described above
 ├── config/                 # mirrors ~/.config/<name>, symlinked in by install.sh
 │   ├── sway/
-│   ├── waybar/
+│   ├── waybar/              # config.jsonc, style.css, scripts/
 │   ├── kitty/
 │   ├── rofi/
 │   ├── swaylock/
 │   ├── gtk-3.0/ gtk-4.0/
 │   ├── qt6ct/
-│   └── environment.d/
+│   ├── environment.d/
+│   ├── fish/                # config.fish (fish_variables is generated, not tracked)
+│   ├── gh/                  # config.yml only — hosts.yml (auth token) is gitignored
+│   ├── micro/                # bindings.json only — buffers/backups are gitignored
+│   ├── macchina/
+│   ├── starship.toml
+│   ├── mimeapps.list
+│   └── dolphinrc
 ├── sddm/nord/               # → /usr/share/sddm/themes/nord
 └── wallpapers/               # → ~/Pictures/Wallpapers
 ```
+
+Not tracked, on purpose: browser profile data (`net.imput.helium/`), PulseAudio
+runtime state (`pulse/`), Dolphin's per-session window cache (`session/`),
+fish's generated `fish_variables`, micro's edit history/backups, and other
+auto-generated or per-machine state (`pavucontrol.ini`, `user-dirs.*`). See
+`.gitignore`.
 

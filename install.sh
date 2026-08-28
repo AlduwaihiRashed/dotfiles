@@ -44,8 +44,11 @@ DEV_PKGS=(
     python3 python3-pip python3-devel python3-virtualenv
     rust cargo golang nodejs npm
 )
+SHELL_PKGS=(
+    fish gh fzf
+)
 
-sudo dnf install -y "${CORE_PKGS[@]}" "${AUDIO_PKGS[@]}" "${DESKTOP_PKGS[@]}" "${DEV_PKGS[@]}"
+sudo dnf install -y "${CORE_PKGS[@]}" "${AUDIO_PKGS[@]}" "${DESKTOP_PKGS[@]}" "${DEV_PKGS[@]}" "${SHELL_PKGS[@]}"
 sudo dnf group install -y "Development Tools"
 
 # foot ships as a weak dep of the sway package but is never referenced by any
@@ -72,6 +75,20 @@ curl -fL -o /tmp/Nordic-darker.tar.xz \
     https://github.com/EliverLara/Nordic/releases/download/v2.2.0/Nordic-darker.tar.xz
 tar -xf /tmp/Nordic-darker.tar.xz -C "$HOME/.themes"
 
+step "Installing Homebrew (for macchina — not packaged in Fedora/RPM Fusion)"
+if [[ ! -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+    NONINTERACTIVE=1 /bin/bash -c \
+        "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+brew install macchina
+
+step "Installing Starship prompt"
+curl -sS https://starship.rs/install.sh | sh -s -- -y
+
+step "Setting fish as the default login shell"
+sudo chsh -s "$(command -v fish)" "$USER"
+
 link() {
     local src="$1" dst="$2"
     mkdir -p "$(dirname "$dst")"
@@ -86,6 +103,8 @@ step "Symlinking configs into ~/.config"
 link "$REPO_DIR/config/sway/config"            "$HOME/.config/sway/config"
 link "$REPO_DIR/config/waybar/config.jsonc"    "$HOME/.config/waybar/config.jsonc"
 link "$REPO_DIR/config/waybar/style.css"       "$HOME/.config/waybar/style.css"
+link "$REPO_DIR/config/waybar/scripts/kb-lang.sh"     "$HOME/.config/waybar/scripts/kb-lang.sh"
+link "$REPO_DIR/config/waybar/scripts/power-menu.sh"  "$HOME/.config/waybar/scripts/power-menu.sh"
 link "$REPO_DIR/config/kitty/kitty.conf"       "$HOME/.config/kitty/kitty.conf"
 link "$REPO_DIR/config/rofi/config.rasi"       "$HOME/.config/rofi/config.rasi"
 link "$REPO_DIR/config/rofi/nord.rasi"         "$HOME/.config/rofi/nord.rasi"
@@ -96,6 +115,19 @@ link "$REPO_DIR/config/qt6ct/qt6ct.conf"       "$HOME/.config/qt6ct/qt6ct.conf"
 link "$REPO_DIR/config/qt6ct/colors/nord.conf" "$HOME/.config/qt6ct/colors/nord.conf"
 link "$REPO_DIR/config/environment.d/qt.conf"  "$HOME/.config/environment.d/qt.conf"
 link "$REPO_DIR/config/environment.d/nvidia.conf" "$HOME/.config/environment.d/nvidia.conf"
+link "$REPO_DIR/config/fish/config.fish"       "$HOME/.config/fish/config.fish"
+link "$REPO_DIR/config/gh/config.yml"          "$HOME/.config/gh/config.yml"
+link "$REPO_DIR/config/micro/bindings.json"    "$HOME/.config/micro/bindings.json"
+link "$REPO_DIR/config/starship.toml"          "$HOME/.config/starship.toml"
+link "$REPO_DIR/config/mimeapps.list"          "$HOME/.config/mimeapps.list"
+link "$REPO_DIR/config/dolphinrc"              "$HOME/.config/dolphinrc"
+link "$REPO_DIR/config/macchina/macchina.toml"        "$HOME/.config/macchina/macchina.toml"
+link "$REPO_DIR/config/macchina/ascii/fedora"         "$HOME/.config/macchina/ascii/fedora"
+link "$REPO_DIR/config/macchina/themes/Beryllium.toml" "$HOME/.config/macchina/themes/Beryllium.toml"
+link "$REPO_DIR/config/macchina/themes/Helium.toml"    "$HOME/.config/macchina/themes/Helium.toml"
+link "$REPO_DIR/config/macchina/themes/Hydrogen.toml"  "$HOME/.config/macchina/themes/Hydrogen.toml"
+link "$REPO_DIR/config/macchina/themes/Lithium.toml"   "$HOME/.config/macchina/themes/Lithium.toml"
+link "$REPO_DIR/config/macchina/themes/Nord.toml"      "$HOME/.config/macchina/themes/Nord.toml"
 
 step "Installing wallpaper"
 mkdir -p "$HOME/Pictures/Wallpapers"

@@ -2,9 +2,10 @@
     "layer": "top",
     "position": "top",
     "height": 24,
-    "spacing": 8,
+    "spacing": 4,
 
     "modules-left": [
+        "custom/launcher",
         "sway/workspaces",
         "sway/window"
     ],
@@ -22,8 +23,16 @@
         "memory",
         "disk",
         "network",
-        "tray"
+        "custom/keyboard-language",
+        "tray",
+        "custom/power"
     ],
+
+    "custom/launcher": {
+        "format": "",
+        "on-click": "rofi -show drun",
+        "tooltip": false
+    },
 
     "sway/workspaces": {
         "disable-scroll": true,
@@ -112,7 +121,19 @@
         "tooltip-format-wifi": "{essid}  {signalStrength}%"
     },
 
+    "custom/keyboard-language": {
+        "exec": "$HOME/.config/waybar/scripts/kb-lang.sh",
+        "interval": 1,
+        "tooltip": false
+    },
+
     "tray": {
-        "spacing": 10
+        "spacing": 6
+    },
+
+    "custom/power": {
+        "format": "󰤂",
+        "on-click": "$HOME/.config/waybar/scripts/power-menu.sh",
+        "tooltip": false
     }
 }

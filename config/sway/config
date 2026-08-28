@@ -33,6 +33,12 @@ set $term kitty
 set $menu rofi -show drun
 set $lock swaylock -f
 
+# Keyboard layout (US + Arabic, toggle with Alt+Shift)
+input "type:keyboard" {
+    xkb_layout "us,ara"
+    xkb_options "grp:alt_shift_toggle"
+}
+
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu
 bindsym --release $mod exec $menu

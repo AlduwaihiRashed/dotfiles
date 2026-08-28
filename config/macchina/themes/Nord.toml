@@ -1,0 +1,27 @@
+# Nord — matches the sway/waybar/kitty Nord palette ($accent = #88C0D0)
+
+spacing         = 3
+hide_ascii      = false
+key_color       = "#88C0D0"
+separator       = ""
+
+[box]
+border          = "plain"
+visible         = true
+
+[palette]
+glyph           = "○"
+spacing         = 2
+visible         = true
+
+[bar]
+glyph           = "○"
+hide_delimiters = true
+visible         = true
+
+[box.inner_margin]
+x               = 2
+y               = 1
+
+[custom_ascii]
+path            = "~/.config/macchina/ascii/fedora"

@@ -1,0 +1,6 @@
+# Fixes the LocalIP readout returning "Unable to get local IPv4 address."
+# libmacchina's auto-detection doesn't reliably pick the default route
+# interface in this VM guest — pin it explicitly.
+interface = "enp1s0"
+
+theme = "Nord"

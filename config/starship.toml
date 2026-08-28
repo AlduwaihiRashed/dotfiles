@@ -1,0 +1,46 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+palette = "nord"
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$fill\
+$cmd_duration\
+$line_break\
+$character"""
+
+[palettes.nord]
+accent = "#88C0D0"
+text = "#D8DEE9"
+muted = "#4C566A"
+green = "#A3BE8C"
+yellow = "#EBCB8B"
+red = "#BF616A"
+
+[directory]
+style = "bold fg:accent"
+truncation_length = 3
+truncate_to_repo = true
+
+[git_branch]
+style = "fg:muted"
+format = " [$symbol$branch]($style)"
+symbol = " "
+
+[git_status]
+style = "fg:yellow"
+format = "[$all_status$ahead_behind]($style)"
+
+[fill]
+symbol = " "
+
+[cmd_duration]
+min_time = 2000
+style = "fg:muted"
+format = "[$duration]($style) "
+
+[character]
+success_symbol = "[❯](bold fg:green)"
+error_symbol = "[❯](bold fg:red)"

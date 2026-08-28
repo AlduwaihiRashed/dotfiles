@@ -1,2 +1,16 @@
 *.bak
 CLAUDE.md
+
+# Secrets / credentials — never commit
+config/gh/hosts.yml
+
+# Runtime state, caches, and generated files — not customizations
+config/net.imput.helium/
+config/pulse/
+config/session/
+config/fish/fish_variables
+config/micro/buffers/
+config/micro/backups/
+config/pavucontrol.ini
+config/user-dirs.dirs
+config/user-dirs.locale
