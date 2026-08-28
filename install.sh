@@ -95,6 +95,7 @@ link "$REPO_DIR/config/gtk-4.0/settings.ini"   "$HOME/.config/gtk-4.0/settings.i
 link "$REPO_DIR/config/qt6ct/qt6ct.conf"       "$HOME/.config/qt6ct/qt6ct.conf"
 link "$REPO_DIR/config/qt6ct/colors/nord.conf" "$HOME/.config/qt6ct/colors/nord.conf"
 link "$REPO_DIR/config/environment.d/qt.conf"  "$HOME/.config/environment.d/qt.conf"
+link "$REPO_DIR/config/environment.d/nvidia.conf" "$HOME/.config/environment.d/nvidia.conf"
 
 step "Installing wallpaper"
 mkdir -p "$HOME/Pictures/Wallpapers"
