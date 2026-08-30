@@ -88,4 +88,5 @@ output * bg /home/alduwaihy/Pictures/wallhaven-73dlk9.png fill
 
 exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
+include ~/.config/sway/config.d/*
 include /etc/sway/config.d/*
