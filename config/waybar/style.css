@@ -115,6 +115,8 @@ tooltip label {
 #network,
 #custom-keyboard-language,
 #tray,
+#power-profiles-daemon,
+#battery,
 #custom-power {
     padding: 0 8px;
     border-left: 1px solid @surface2;
@@ -126,7 +128,8 @@ tooltip label {
 #memory:hover,
 #disk:hover,
 #network:hover,
-#custom-keyboard-language:hover {
+#custom-keyboard-language:hover,
+#power-profiles-daemon:hover {
     background: @surface;
 }
 
@@ -174,5 +177,39 @@ tooltip label {
 #memory,
 #disk {
     color: @muted;
+}
+
+/* Power profile / battery */
+
+#power-profiles-daemon {
+    color: @muted;
+}
+
+#power-profiles-daemon.performance {
+    color: @urgent;
+}
+
+#power-profiles-daemon.balanced {
+    color: @accent;
+}
+
+#power-profiles-daemon.power-saver {
+    color: @muted;
+}
+
+#battery {
+    color: @text;
+}
+
+#battery.warning {
+    color: #EBCB8B;
+}
+
+#battery.critical {
+    color: @urgent;
+}
+
+#battery.charging {
+    color: @accent;
 }
 

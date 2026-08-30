@@ -84,10 +84,18 @@ Log out and back in, or reboot, once `install.sh` completes.
 
 ## Optional: NVIDIA driver
 
-`install.sh` pre-stages the Wayland env vars (`config/environment.d/nvidia.conf`
-→ `GBM_BACKEND`, `__GLX_VENDOR_LIBRARY_NAME`, `LIBVA_DRIVER_NAME`,
-`WLR_NO_HARDWARE_CURSORS`) but does **not** install the driver itself, since
-most machines running this repo won't have an NVIDIA GPU. If yours does:
+Sway is started through `scripts/start-sway` (installed as
+`~/.local/bin/start-sway` and wired into the login session). That wrapper
+puts whichever GPU has a **connected display output** first in
+`WLR_DRM_DEVICES` (on a hybrid/Optimus laptop without a MUX switch, that's
+the integrated GPU — NVIDIA usually isn't wired to the panel at all), adds
+NVIDIA as a secondary device if present, sources
+`config/environment.d/nvidia.conf` (`WLR_NO_HARDWARE_CURSORS`) in that case,
+and runs `sway --unsupported-gpu`. That var is **not** installed into
+`~/.config/environment.d`, so it does not leak into a Plasma session.
+
+`install.sh` does **not** install `akmod-nvidia` itself. If you need the
+driver:
 
 ```sh
 sudo dnf install -y kernel-devel-$(uname -r) akmod-nvidia xorg-x11-drv-nvidia-cuda
@@ -101,6 +109,7 @@ sudo reboot
 ```
 dotfiles/
 ├── install.sh              # the installer described above
+├── scripts/start-sway      # NVIDIA wrapper → ~/.local/bin/start-sway
 ├── config/                 # mirrors ~/.config/<name>, symlinked in by install.sh
 │   ├── sway/
 │   ├── waybar/              # config.jsonc, style.css, scripts/

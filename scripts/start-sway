@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SELF="$(readlink -f "${BASH_SOURCE[0]}")"
+REPO_DIR="$(cd "$(dirname "$SELF")/.." && pwd)"
+NVIDIA_ENV="$REPO_DIR/config/environment.d/nvidia.conf"
+
+# Primary DRM device = whichever GPU actually drives a connected output.
+# On hybrid/Optimus laptops without a MUX switch the panel is wired only
+# to the integrated GPU, so NVIDIA has zero connected outputs of its own.
+# Forcing it primary anyway leaves sway with no outputs at all
+# ("swaymsg -t get_outputs" -> []) i.e. a black screen.
+primary_dev=""
+secondary_devs=()
+has_nvidia=0
+
+for syscard in /sys/class/drm/card[0-9]; do
+    [[ -e "$syscard/device/driver" ]] || continue
+    driver="$(basename "$(readlink -f "$syscard/device/driver")")"
+    dev="/dev/dri/$(basename "$syscard")"
+    [[ -e "$dev" ]] || continue
+    [[ "$driver" == nvidia ]] && has_nvidia=1
+
+    connected=0
+    for conn in "$syscard"-*; do
+        [[ -f "$conn/status" ]] || continue
+        [[ "$(cat "$conn/status")" == connected ]] && { connected=1; break; }
+    done
+
+    if ((connected)) && [[ -z "$primary_dev" ]]; then
+        primary_dev="$dev"
+    else
+        secondary_devs+=("$dev")
+    fi
+done
+
+if [[ -n "$primary_dev" && ${#secondary_devs[@]} -gt 0 ]]; then
+    WLR_DRM_DEVICES="$primary_dev:$(IFS=:; echo "${secondary_devs[*]}")"
+    export WLR_DRM_DEVICES
+fi
+
+if ((has_nvidia)) && [[ -f "$NVIDIA_ENV" ]]; then
+    set -a
+    # shellcheck disable=SC1090
+    source "$NVIDIA_ENV"
+    set +a
+fi
+
+exec sway --unsupported-gpu "$@"

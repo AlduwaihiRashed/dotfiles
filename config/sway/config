@@ -32,6 +32,10 @@ set $mod Mod4
 set $term kitty
 set $menu rofi -show drun
 set $lock swaylock -f
+set $files dolphin
+set $office flatpak run org.onlyoffice.desktopeditors
+set $browser helium
+set $ai claude-desktop-unofficial
 
 # Keyboard layout (US + Arabic, toggle with Alt+Shift)
 input "type:keyboard" {
@@ -39,34 +43,43 @@ input "type:keyboard" {
     xkb_options "grp:alt_shift_toggle"
 }
 
-bindsym $mod+Return exec $term
-bindsym $mod+d exec $menu
-bindsym --release $mod exec $menu
+bindsym $mod+Return exec $term                          # Open terminal
+bindsym $mod+space exec $menu                             # App launcher
+bindsym $mod+slash exec show-keybinds                     # Show keybindings guide
+bindsym $mod+d exec $files                                # Open file manager
+bindsym $mod+o exec $office                               # Open OnlyOffice
+bindsym $mod+h exec $browser                              # Open web browser
+bindsym $mod+c exec $ai                                   # Open Claude desktop
+# Close focused window
 bindsym $mod+q kill
-bindsym $mod+Escape exec $lock
+
+# Manual lock only (no idle-based locking)
+bindsym $mod+Escape exec pgrep -x swaylock || $lock
 
 # Floating popups
 for_window [app_id="pavucontrol"] floating enable, move position center
 for_window [app_id="qt6ct"] floating enable, move position center
 
 # Workspaces
+# Switch to workspace
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
 bindsym $mod+3 workspace number 3
 bindsym $mod+4 workspace number 4
 
-# Waybar
-exec_always --no-startup-id waybar
+# Move focused window to workspace
+bindsym $mod+Ctrl+1 move container to workspace number 1
+bindsym $mod+Ctrl+2 move container to workspace number 2
+bindsym $mod+Ctrl+3 move container to workspace number 3
+bindsym $mod+Ctrl+4 move container to workspace number 4
 
-# Idle / lock (dim -> lock -> screen off; lock again on sleep)
-exec_always swayidle -w \
-    timeout 300 '$lock' \
-    timeout 600 'swaymsg "output * dpms off"' \
-    resume 'swaymsg "output * dpms on"' \
-    before-sleep '$lock'
+# Waybar (managed by systemd --user, see: systemctl --user status waybar)
+
+# No idle daemon: locking/suspend/dpms only happen via manual keybindings
+exec_always pkill -x swayidle
 
 # Wallpaper
-output * bg /home/alduwaihy/Pictures/Wallpapers/200096-nordic-landscape-3840x2160.jpg fill
+output * bg /home/alduwaihy/Pictures/wallhaven-73dlk9.png fill
 
 # Shadows require swayfx (not installed) - stock sway rejects these:
 # shadows enable

@@ -1,7 +1,7 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 24,
+    "height": 26,
     "spacing": 4,
 
     "modules-left": [
@@ -25,6 +25,8 @@
         "network",
         "custom/keyboard-language",
         "tray",
+        "power-profiles-daemon",
+        "battery",
         "custom/power"
     ],
 
@@ -38,6 +40,7 @@
         "disable-scroll": true,
         "all-outputs": true,
         "format": "{name}",
+        "tooltip": false,
         "persistent-workspaces": {
             "1": [],
             "2": [],
@@ -129,6 +132,30 @@
 
     "tray": {
         "spacing": 6
+    },
+
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip-format": "Power profile: {profile}\nDriver: {driver}\nClick to change",
+        "format-icons": {
+            "default": "🔋",
+            "performance": "⚡",
+            "balanced": "🔋",
+            "power-saver": "🍃"
+        },
+        "on-click": "$HOME/.config/waybar/scripts/power-profile.sh"
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰚥 {capacity}%",
+        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "tooltip-format": "{time} remaining ({capacity}%)"
     },
 
     "custom/power": {

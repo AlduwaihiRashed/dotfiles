@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Popup cheat-sheet of every bindsym in the sway config, via rofi.
+# Uses each line's trailing "# description" comment when present,
+# falling back to the raw command otherwise.
+set -euo pipefail
+
+config="$HOME/.config/sway/config"
+
+body="$(grep -E '^\s*bindsym' "$config" \
+    | sed -E 's/^\s*bindsym\s+//; s/--[a-zA-Z-]+\s+//g; s/\$mod/Super/g' \
+    | awk -F'#' '{
+        keycmd = $1
+        desc = $2
+        sub(/[ \t]+$/, "", keycmd)
+        split(keycmd, parts, /[ \t]+/)
+        key = parts[1]
+        if (desc == "") {
+            desc = keycmd
+            sub(/^[^ \t]+[ \t]+/, "", desc)
+        } else {
+            sub(/^[ \t]+/, "", desc)
+        }
+        printf "%-20s %s\n", key, desc
+    }')"
+
+rofi -e "$body"
