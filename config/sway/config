@@ -79,12 +79,19 @@ bindsym $mod+Ctrl+4 move container to workspace number 4
 exec_always pkill -x swayidle
 
 # Wallpaper
-output * bg /home/alduwaihy/Pictures/wallhaven-73dlk9.png fill
+output * bg /home/alduwaihy/Pictures/Wallpapers/icy-peaks.jpg fill
 
-# Shadows require swayfx (not installed) - stock sway rejects these:
-# shadows enable
-# shadow_blur_radius 12
-# shadow_color #00000055
+# SwayFX effects
+blur enable
+blur_xray disable
+blur_passes 3
+blur_radius 5
+corner_radius 8
+shadows enable
+shadow_blur_radius 12
+shadow_color #00000055
+default_dim_inactive 0.1
+animation_duration_ms 300
 
 exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
